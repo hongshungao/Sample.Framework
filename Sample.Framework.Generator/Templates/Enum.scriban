@@ -1,0 +1,16 @@
+namespace {{ namespace }};
+
+/// <summary>
+/// {{ enum.description ?? "枚举类型" }}
+/// </summary>
+public enum {{ enum.name }}
+{
+    {{~ for value in enum.values ~}}
+    {{~ if value.description ~}}
+    /// <summary>
+    /// {{ value.description }}
+    /// </summary>
+    {{~ end ~}}
+    {{ value.name }} = {{ value.value }},
+    {{~ end ~}}
+}

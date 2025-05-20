@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace {{ namespace }};
+
+/// <summary>
+/// {{ entity.description }}
+/// </summary>
+public class {{ entity.name }}
+{
+    {{~ for property in entity.properties ~}}
+    {{~ if property.iskey ~}}
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    {{~ end ~}}
+    {{~ if property.isrequired ~}}
+    [Required]
+    {{~ end ~}}
+    {{~ if property.description ~}}
+    /// <summary>
+    /// {{ property.description }}
+    /// </summary>
+    {{~ end ~}}
+    public {{ property.type }}{{ property.isrequired ? "" : "?" }} {{ property.name }} { get; set; }{{ property.isrequired ? " = " + (property.type == "string" ? "\"\"" : "default(" + property.type + ")") + ";" : "" }}
+    
+    {{~ end ~}}
+}
